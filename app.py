@@ -24,9 +24,7 @@ def getImage():
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # check to see if we should apply thresholding to preprocess the
     # image
-    pathname = os.path.abspath(os.getcwd()) + "\env"
-
-    tessdata_dir_config = '--tessdata-dir "' + pathname + '"'
+    pathname = os.path.abspath(os.getcwd()) + r"\env"
 
     gray = cv2.threshold(gray, 0, 255,
                              cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -36,10 +34,10 @@ def getImage():
     cv2.imwrite(filename, gray)
     # load the image as a PIL/Pillow image, apply OCR, and then delete
     # the temporary fil
-    text = pytesseract.image_to_string(Image.open(filename), lang="deu", config=tessdata_dir_config)
+    text = pytesseract.image_to_string(Image.open(filename), lang="deu")
     os.remove(filename)
     print(text)
     return text
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
