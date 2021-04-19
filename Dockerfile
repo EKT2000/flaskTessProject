@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER fnndsc "dev@babymri.org"
+MAINTAINER fnndsc "elias@kadiri.de"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
