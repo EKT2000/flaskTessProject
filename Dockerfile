@@ -1,14 +1,8 @@
-FROM ubuntu:latest
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+
 
 MAINTAINER fnndsc "elias@kadiri.de"
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
-  && cd /usr/local/bin \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
 
 RUN apt-get update \
   && apt-get install tesseract-ocr -y \
@@ -23,7 +17,7 @@ RUN apt-get update \
 RUN apt-get update \
    && apt-get install libgl1-mesa-glx -y \
    && apt-get clean \
-   %% apt-get autoremove
+   && apt-get autoremove
 
 
 # We copy just the requirements.txt first to leverage Docker cache
@@ -33,8 +27,4 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-COPY . /app
-
-ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+COPY ./app /app
