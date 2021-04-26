@@ -14,6 +14,7 @@ app = FastAPI()
 
 class Item(BaseModel):
     base64: str
+    lang: str
 
 
 @app.get('/')
@@ -23,6 +24,7 @@ def hello_world():
 
 @app.post('/getImage')
 def getImage(item: Item):
+    print(item.lang)
     timestamp = str(time.time() * 1000)
     print("create tmp file from base64")
     fh = open("tmp\\imageToSave_" + timestamp + ".png", "wb")
@@ -44,8 +46,8 @@ def getImage(item: Item):
     # TAKE THESE 2 COMMENTS OUT IF YOU WANT TO TEST ON YOUR LOCAL MACHINE
     #tessconfig = r'--tessdata-dir "' + os.path.abspath(os.getcwd()) + r'\env" --oem 1 --psm 1'
     print("read content ...")
-    #text = pytesseract.image_to_string(Image.open("tmp\\output_" + timestamp + ".png"), lang="deu", config=tessconfig)
-    text = pytesseract.image_to_string(Image.open("tmp\\output_" + timestamp + ".png"), lang="deu", config="--oem 1 --psm 1")
+    #text = pytesseract.image_to_string(Image.open("tmp\\output_" + timestamp + ".png"), lang=item.lang, config=tessconfig)
+    text = pytesseract.image_to_string(Image.open("tmp\\output_" + timestamp + ".png"), lang=item.lang, config="--oem 1 --psm 1")
 
     # text = pytesseract.image_to_string(Image.open('output.png'), lang="deu")
     print("remove tmp files")
