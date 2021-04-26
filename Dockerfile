@@ -8,6 +8,8 @@ RUN apt-get update \
   && apt-get install tesseract-ocr -y \
   tesseract-ocr-deu \
   tesseract-ocr-eng \
+  tesseract-ocr-fra \
+  tesseract-ocr-spa \
   python3 \
   #python-setuptools \
   python3-pip \
